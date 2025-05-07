@@ -6,6 +6,10 @@ from routers import auth, todos, admin, users
 
 app=FastAPI()
 
+@app.get("/healthy")
+def health_check():
+    return {'status': 'Healthy'}
+
 
 models.Base.metadata.create_all(bind= engine)
 
