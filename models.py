@@ -1,4 +1,4 @@
-from database import Base
+from TodoApp.database import Base
 from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 
 class User(Base):
@@ -12,8 +12,6 @@ class User(Base):
     is_active=Column(Boolean, default=True)
     role=Column(String)
     phone_number= Column(String)
-
-
 
 
 class Todos(Base):

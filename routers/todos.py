@@ -1,11 +1,10 @@
-
 from typing import Annotated
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException, status, Path
-from models import Todos
-from database import  SessionLocal
-from .auth import get_current_user
+from TodoApp.models import Todos
+from TodoApp.database import SessionLocal
+from TodoApp.routers.auth import get_current_user
 
 router=APIRouter()
 

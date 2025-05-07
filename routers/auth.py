@@ -1,7 +1,7 @@
 from fastapi import  APIRouter, status, Depends, HTTPException
 from pydantic import BaseModel
-from models import User
-from database import SessionLocal
+from TodoApp.models import User
+from TodoApp.database import SessionLocal
 from passlib.context import CryptContext
 from typing import Annotated
 from sqlalchemy.orm import Session
