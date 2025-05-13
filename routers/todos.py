@@ -76,10 +76,9 @@ async def update_todo(user: user_dependency, db: db_dependency, todo_request: To
 async def delete_todo(user: user_dependency, db: db_dependency, id_todo: int= Path(gt=0)):
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication Failed")
-    todo_model=db.query(Todos).filter(Todos.id == id_todo).filter(Todos.owner_id== user.get('id')).first()
+    todo_model=db.query(Todos).filter(Todos.id == id_todo).filter(Todos.owner_id== user.get('user_id')).first()
 
     if todo_model is None:
         raise HTTPException(status_code=404, detail="Not found")
-    db.query(Todos).filter(Todos.id ==id_todo).filter(Todos.owner_id== user.get('id')).delete()
+    db.query(Todos).filter(Todos.id ==id_todo).filter(Todos.owner_id== user.get('user_id')).delete()
     db.commit()
-    

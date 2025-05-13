@@ -134,7 +134,7 @@ def test_update_todo_not_found(test_todo):
     assert response.json()== {'detail': "Not content found"}
 
 def test_delete_todo(test_todo):
-    response= client.delete('/todo/{test_todo.id}')
+    response= client.delete(f'/todo/{test_todo.id}')
     assert response.status_code==status.HTTP_204_NO_CONTENT
     db= TestingSessionLocal()
     model= db.query(Todos).filter(Todos.id== test_todo.id).first()
