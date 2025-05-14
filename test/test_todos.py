@@ -139,3 +139,8 @@ def test_delete_todo(test_todo):
     db= TestingSessionLocal()
     model= db.query(Todos).filter(Todos.id== test_todo.id).first()
     assert model is None
+
+def test_delete_todo_not_found(test_todo):
+    response= client.delete('/todo/999')
+    assert response.status_code==status.HTTP_404_NOT_FOUND
+    assert response.json()== {'detail':"Not found"}
