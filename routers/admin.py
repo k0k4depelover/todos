@@ -28,14 +28,14 @@ async def read_all(user: user_dependency, db:db_dependency):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Authentication failed')
     return db.query(Todos).all()
     
-@router.delete("/todo/{todo_id}", status_code= status.HTTP_204_NO_CONTENT)
-async def delete_todo(user: user_dependency, db: db_dependency, id_todo: int):
-    if user is None or user.get('role')!='admin':
+@router.delete("/todo/{todo_id}", status_code=status.HTTP_204_NO_CONTENT )
+async def delete_todo(user: user_dependency, db: db_dependency, todo_id: int):
+    if user is None or user.get('user_role')!='admin':
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='Could not authenticated')
-    task_delete= db.query(Todos).filter(Todos.id== id_todo).first()
+    task_delete = db.query(Todos).filter(Todos.id == todo_id).first()
     if task_delete is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User or task not found")
     
-    db.query(Todos).filter(Todos.id== id_todo).delete()
+    db.query(Todos).filter(Todos.id == todo_id).delete()
     db.commit()
     return "Task Deleted"

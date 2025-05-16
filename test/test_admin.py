@@ -4,7 +4,6 @@ from fastapi import status
 from TodoApp.models import Todos
 
 app.dependency_overrides[get_db]= override_get_db
-
 app.dependency_overrides[get_current_user]= override_get_current_user
 
 def test_admin_read_all_authenticated(test_todo):
@@ -26,7 +25,7 @@ def test_admin_delete_todo(test_todo):
     model= db.query(Todos).filter(Todos.id== test_todo.id).first()
     assert model is None
 
-def test_admin_delete_todo_not_found(test_user):
+def test_admin_delete_todo_not_found(test_todo):
     response= client.delete("admin/todo/999")
     assert response.status_code== status.HTTP_404_NOT_FOUND
     assert response.json()== {'detail': "User or task not found"}
